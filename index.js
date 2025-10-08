@@ -22,13 +22,13 @@ const itemSchema = new mongoose.Schema({
 const Item = mongoose.model("Item", itemSchema);
 
 // Get all items
-app.get("/api/items", async (req, res) => {
+app.get("/items", async (req, res) => {
   const items = await Item.find();
   res.json(items);
 });
 
 // Create item
-app.post("/api/items", async (req, res) => {
+app.post("/items", async (req, res) => {
   const { name, description, url } = req.body;
   const newItem = new Item({ name, description, url });
   await newItem.save();
@@ -36,7 +36,7 @@ app.post("/api/items", async (req, res) => {
 });
 
 // Update item
-app.put("/api/items/:id", async (req, res) => {
+app.put("/items/:id", async (req, res) => {
   const { name, description, url } = req.body;
   const updatedItem = await Item.findByIdAndUpdate(
     req.params.id,
@@ -47,7 +47,7 @@ app.put("/api/items/:id", async (req, res) => {
 });
 
 // Delete item
-app.delete("/api/items/:id", async (req, res) => {
+app.delete("/items/:id", async (req, res) => {
   await Item.findByIdAndDelete(req.params.id);
   res.json({ message: "Item deleted" });
 });
