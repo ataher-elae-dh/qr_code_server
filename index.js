@@ -27,7 +27,21 @@ app.get("/items", async (req, res) => {
   res.json(items);
 });
 
+// Get all items
+app.get("/Story", async (req, res) => {
+  const items = await Item.find();
+  const randomIndex = Math.round(Math.random() * (items.length - 1));
+  res.json(items[randomIndex]);
+});
+
 // Create item
+app.post("/items", async (req, res) => {
+  const { name, description, url } = req.body;
+  const newItem = new Item({ name, description, url });
+  await newItem.save();
+  res.json(newItem);
+});
+
 app.post("/items", async (req, res) => {
   const { name, description, url } = req.body;
   const newItem = new Item({ name, description, url });
